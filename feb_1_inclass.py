@@ -28,11 +28,11 @@ from numpy import linspace, exp
 from math import factorial
 
 #Creating an array to pull x-values from
-x_array  = linspace(0,100,11)
+x_array  = linspace(0, 100, 11)
 
 #Declaring variables
 sum_1    = float(0)
-s_n      = 1 #set to a value so the while-loop will initialize
+s_n      = 1  #set to a value so the while-loop will initialize
 epsilon  = 1e-12
 
 #Summation
@@ -45,18 +45,18 @@ for xx in x_array:
         s_n    = ( (xx**n) / (factorial(n)) )
         sum_1 += s_n
         n     += 1
-        if n  == 153: #A condition needed, because sometimes n will get too big
-                      #before the term becomes insignificant, and there is
-                      #overflow. A max value of n had to be put into place, and 
-                      #this was the one every value could reach before breaking.
+        if n  == 153:  #A condition needed, because sometimes n will get too big
+                       #before the term becomes insignificant, and there is
+                       #overflow. A max value of n had to be put into place, and
+                       #this was the one every value could reach before breaking.
             break
 
     inverse_sum = 1/sum_1
 
     print("")
-    print("x = {0}".format(xx)) #Print the x-value
-    print("Inverse = {0}".format(inverse_sum)) #Print the calculated value
-    print("Numpy   = {0:.12e}".format(exp(-xx))) #Print the numpy value
+    print("x = {0}".format(xx))                   #Print the x-value
+    print("Inverse = {0}".format(inverse_sum))    #Print the calculated value
+    print("Numpy   = {0:.12e}".format(exp(-xx)))  #Print the numpy value
 
 #END PROGRAM
 
@@ -108,16 +108,3 @@ x = 100.0
 Inverse = 3.71990901242e-44
 Numpy   = 3.720075976021e-44
 """
-
-
-
-
-
-
-
-
-        
-
-
-
-#while abs(sum - (sum+s_n)) < epsilon:   
