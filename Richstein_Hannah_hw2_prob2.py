@@ -77,6 +77,9 @@ def binding_energy(A,Z):
 
 results = binding_energy(A,Z)
 
+#Returning the answer to the user
 print("\nThe binding energy, B, is {0:0.1f}".format(results[0]) + " MeV.")
 print("\nThe binding energy per nucleon is {0:0.2f}".format(results[1]) 
 	  + " MeV.")
+
+#END PROGRAM
