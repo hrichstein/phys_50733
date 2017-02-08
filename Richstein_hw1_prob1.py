@@ -4,7 +4,7 @@ Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
 HW 1, Problem 1
-Last edited: 26 Jan 2017
+Last edited: 7 Feb 2017
 
 Overview:
 ---------
@@ -47,7 +47,7 @@ final_binary: integer-like
 from __future__ import division, absolute_import
 
 # Asking for user input
-dec_num = int(input("Enter the decimal number you would like to be converted "/
+dec_num = int(input("Enter the decimal number you would like to be converted "
                   + "to binary: "))
 
 # Beginning with 0, in case the decimal number is just 1
@@ -85,7 +85,7 @@ else:
 final_binary = int(bin_text)
 
 # Return the original decimal and the new binary conversion to the screen.
-print("Decimal: {0}".format(dec_num))
+print("\nDecimal: {0}".format(dec_num))
 print("Binary: {0}".format(final_binary))
 
 # END PROGRAM
