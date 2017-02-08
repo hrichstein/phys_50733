@@ -4,7 +4,7 @@ Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
 HW 2, Prob 2 - The semi-empirical mass formula
-Last edited: 7 February 2017 
+Last edited: 7 February 2017
 
 Overview:
 ---------
@@ -17,7 +17,7 @@ The user must input A, the mass number, and Z, the atomic number.
 
 Output:
 -------
-This will print the binding energy B, in MeV, and the binding energy per 
+This will print the binding energy B, in MeV, and the binding energy per
 nucleon in MeV.
 
 Program Limitations:
@@ -25,7 +25,7 @@ Program Limitations:
 N/A
 
 Significant Program Variables:
------------------------------- 
+------------------------------
 A: user-input mass number
 
 Z: user-input atomic number
@@ -36,30 +36,32 @@ B: calculated binding energy
 
 """
 
-#Importing because I like np arrays and didn't want to mess with regular ones.
+# Importing because I like np arrays and didn't want to mess with regular ones.
 from numpy import array
 
-#Constants (Set Coefficients)
+# Constants (Set Coefficients)
 a_1 = 15.67
 a_2 = 17.23
 a_3 = 0.75
 a_4 = 93.2
 
-#Mass number is number of protons
+# Mass number is number of protons
 A   = int(input("Please input the mass number of the atom: "))
 
-#Atomic number is number of protons + number of neutrons
+# Atomic number is number of protons + number of neutrons
 Z   = int(input("\nPlease input the atomic number of the atom: "))
 
-#Calculating the binding energy for the atom and per nucleon
-def binding_energy(A,Z):
+# Calculating the binding energy for the atom and per nucleon
 
-	if A%2   !=  0:
-		a_5   =  0
-	elif Z%2 ==  0:
-		a_5   = 12.0
+
+def binding_energy(A, Z):
+
+	if A % 2   !=   0:
+		a_5     =   0
+	elif Z % 2 ==   0:
+		a_5     =  12.0
 	else:
-		a_5   =-12.0
+		a_5     = -12.0
 
 	# print("\na_5 = {0}".format(a_5))  #Checking to see if loop is working
 
@@ -75,11 +77,12 @@ def binding_energy(A,Z):
 
 	return array([B, per_nuc])
 
-results = binding_energy(A,Z)
 
-#Returning the answer to the user
+results = binding_energy(A, Z)
+
+# Returning the answer to the user
 print("\nThe binding energy, B, is {0:0.1f}".format(results[0]) + " MeV.")
-print("\nThe binding energy per nucleon is {0:0.2f}".format(results[1]) 
-	  + " MeV.")
+print("\nThe binding energy per nucleon is {0:0.2f}".format(results[1]) /
+	+ " MeV.")
 
-#END PROGRAM
+# END PROGRAM

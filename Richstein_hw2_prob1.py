@@ -61,7 +61,7 @@ days_Julian_yr = 365.25
 
 def sec_to_yr(seconds):
 	return seconds / 3600 / 24 / days_Julian_yr
-
+`
 
 # Converting v and c to proper formats for calculation
 x *= c * 3600 * 24 * days_Julian_yr  # Converting to meters
