@@ -8,28 +8,38 @@ Last edited: 7 February 2017
 
 Overview:
 ---------
-
+This program calculates and returns the binding energy and binding energy per
+nucleon of an atom.
 
 Input:
 ------
-
+The user must input A, the mass number, and Z, the atomic number.
 
 Output:
 -------
-
+This will print the binding energy B, in MeV, and the binding energy per 
+nucleon in MeV.
 
 Program Limitations:
 --------------------
-
+N/A
 
 Significant Program Variables:
-------------------------------
+------------------------------ 
+A: user-input mass number
 
+Z: user-input atomic number
+
+a_n: coefficients for the nth term in the sum
+
+B: calculated binding energy
 
 """
+
+#Importing because I like np arrays and didn't want to mess with regular ones.
 from numpy import array
 
-#Constants
+#Constants (Set Coefficients)
 a_1 = 15.67
 a_2 = 17.23
 a_3 = 0.75
@@ -41,6 +51,7 @@ A   = int(input("Please input the mass number of the atom: "))
 #Atomic number is number of protons + number of neutrons
 Z   = int(input("\nPlease input the atomic number of the atom: "))
 
+#Calculating the binding energy for the atom and per nucleon
 def binding_energy(A,Z):
 
 	if A%2   !=  0:
@@ -59,6 +70,7 @@ def binding_energy(A,Z):
 	fifth_term = a_5 / ( A**(1/2) )
 
 	B = first_term - sec_term - third_term - four_term - fifth_term
+	
 	per_nuc = B / A
 
 	return array([B, per_nuc])
