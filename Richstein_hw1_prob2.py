@@ -8,7 +8,7 @@ Last edited: 29 Jan 2017
 
 Overview:
 ---------
-This program asks the user for an orbital period in minutes and calculates the 
+This program asks the user for an orbital period in minutes and calculates the
 altitude a satellite must have in meters to remain in orbit around the Earth.
 
 Input:
@@ -17,7 +17,7 @@ Period, in minutes.
 
 Output:
 -------
-Altitude, in meters. Scientific notation with three significant figures. 
+Altitude, in meters. Scientific notation with three significant figures.
 
 Program Limitations:
 --------------------
@@ -36,22 +36,22 @@ h: float-like
 from __future__ import division, absolute_import
 from numpy import pi
 
-#Setting constants
-G = 6.67e-11     #m**3 kg**-1 s**-2, Newton's gravitational constant
-M = 5.97e24      #kg, Mass of the Earth
-R = 6371 * 10**3 #m, Radius of the Earth
+# Setting constants
+G = 6.67e-11      # m**3 kg**-1 s**-2, Newton's gravitational constant
+M = 5.97e24       # kg, Mass of the Earth
+R = 6371 * 10**3  # m, Radius of the Earth
 
-#Asking for user input
-T = input("Please enter the desired period, T, in minutes: ")
+# Asking for user input
+T  = input("Please enter the desired period, T, in minutes: ")
 T *= 60
 
-#Calculating the desired value
-h = ( (G*M*(T**2)) / (4*(pi**2)) )**(1/3) - R 
+# Calculating the desired value
+h  = ( (G*M*(T**2)) / (4*(pi**2)) )**(1/3) - R
 
-#Printing the value to the screen
+# Printing the value to the screen
 print("The required altitude h, in meters is {0:1.2e}".format(h))
 
-#END PROGRAM
+# END PROGRAM
 
 """
 2a)
@@ -63,11 +63,11 @@ For a planet or satellite orbiting a central body of mass M,
 where T is period in seconds, a is the radius of a circular orbit, and G is
 Newton's gravitational constant.
 
-(From this equation, we see Kepler's third law of planetary motion, that the 
+(From this equation, we see Kepler's third law of planetary motion, that the
 square of the orbital period is proportional to the cube of the semi-major
 axis.)
 
-We split a, the full radius, to be h + R, where R is the radius of the Earth 
+We split a, the full radius, to be h + R, where R is the radius of the Earth
 and h is the altitude the satellite must be above the Earth's surface.
 
 (T / (2*pi) )**2 = (R + h)**3 / (G*M)
@@ -97,7 +97,7 @@ satellite which orbits the Earth every 45 minutes.
 
 2d)
 
-The sidereal day is how long it takes for the Earth to make a full rotation on 
+The sidereal day is how long it takes for the Earth to make a full rotation on
 its axis relative to very distant, or "fixed," stars.  It takes into account
 Earth's rotation as well as its progress in its orbit around the Sun.
 
