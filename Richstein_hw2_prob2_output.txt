@@ -1,0 +1,30 @@
+Richstein_Hannah_hw2_prob2_output
+
+Please input the mass number of the atom: 58
+
+Please input the atomic number of the atom: 28
+
+The binding energy, B, is 490.8 MeV.
+
+The binding energy per nucleon is 8.46 MeV.
+
+--------------------------------------------
+
+Please input the mass number of the atom: 59
+
+Please input the atomic number of the atom: 28
+
+The binding energy, B, is 498.1 MeV.
+
+The binding energy per nucleon is 8.44 MeV.
+
+-------------------------------------------
+
+Please input the mass number of the atom: 58
+
+Please input the atomic number of the atom: 27
+
+The binding energy, B, is 485.3 MeV.
+
+The binding energy per nucleon is 8.37 MeV.
+
