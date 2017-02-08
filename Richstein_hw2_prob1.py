@@ -47,7 +47,7 @@ t_rest: time as seen from Earth (rest frame)
 from scipy.constants import c
 
 # Asking for user-input
-x = float(input("Please input the distance to the desired planet in " /
+x = float(input("Please input the distance to the desired planet in "
 	+ "light years: "))
 v = float(input("\nPlease input the speed as a fraction of the speed of "
 	+ "light.\n(For example, 0.75, to represent 0.75c.): "))
@@ -61,7 +61,7 @@ days_Julian_yr = 365.25
 
 def sec_to_yr(seconds):
 	return seconds / 3600 / 24 / days_Julian_yr
-`
+
 
 # Converting v and c to proper formats for calculation
 x *= c * 3600 * 24 * days_Julian_yr  # Converting to meters
@@ -81,9 +81,9 @@ t_proper = sec_to_yr(t_proper)
 t_rest   = sec_to_yr(t_rest)
 
 # Returning the answer to the user
-print("\nThe time it takes to reach the planet as observed from Earth is " /
+print("\nThe time it takes to reach the planet as observed from Earth is "
 	  "{0:.2f}".format(t_rest) + " years.\n")
-print("The time it takes as perceived by a passenger on the ship is " /
+print("The time it takes as perceived by a passenger on the ship is "
 	  "{0:.2f}".format(t_proper) + " years.")
 
 # END PROGRAM
