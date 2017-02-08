@@ -4,7 +4,7 @@ Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
 HW 1, Problem 2
-Last edited: 29 Jan 2017
+Last edited: 7 Feb 2017
 
 Overview:
 ---------
@@ -33,7 +33,6 @@ h: float-like
 
 """
 
-from __future__ import division, absolute_import
 from numpy import pi
 
 # Setting constants
@@ -42,14 +41,14 @@ M = 5.97e24       # kg, Mass of the Earth
 R = 6371 * 10**3  # m, Radius of the Earth
 
 # Asking for user input
-T  = input("Please enter the desired period, T, in minutes: ")
+T  = float(input("Please enter the desired period, T, in minutes: "))
 T *= 60
 
 # Calculating the desired value
 h  = ( (G*M*(T**2)) / (4*(pi**2)) )**(1/3) - R
 
 # Printing the value to the screen
-print("The required altitude h, in meters is {0:1.2e}".format(h))
+print("\nThe required altitude h, in meters is {0:1.2e}".format(h))
 
 # END PROGRAM
 
