@@ -46,48 +46,49 @@ final_binary: integer-like
 
 from __future__ import division, absolute_import
 
-#Asking for user input
-dec_num = int(input("Enter the decimal number you would like to be converted to binary: "))
+# Asking for user input
+dec_num = int(input("Enter the decimal number you would like to be converted "/
+                  + "to binary: "))
 
-#Beginning with 0, in case the decimal number is just 1
+# Beginning with 0, in case the decimal number is just 1
 pow_of_2 = 0
 
-#If the number is non-zero
+# If the number is non-zero
 if(dec_num//(2**pow_of_2) != 0):
     bin_text = '1'
 
-    #While integer division by some power of two is not 1, increase the power
+    # While integer division by some power of two is not 1, increase the power
     while dec_num // (2**pow_of_2) != 1:
         pow_of_2 += 1
 
-    #After the dec_num has been divded by the largest power of 2 possible, take
-    #the modulus
+    # After the dec_num has been divded by the largest power of 2 possible, take
+    # the modulus
     rem = dec_num % (2**pow_of_2)
 
-    #For each power of 2 less than the largest, see if integer division of the 
-    #remainder by the new power yields 1. If so, add '1' to the binary string.
-    #Then, find the new remaineder. If the number is not divisible by the next
-    #largest power of 2, add '0'. 
+    # For each power of 2 less than the largest, see if integer division of the
+    # remainder by the new power yields 1. If so, add '1' to the binary string.
+    # Then, find the new remaineder. If the number is not divisible by the next
+    # largest power of 2, add '0'.
     for pp in reversed(range(pow_of_2)):
         if(rem // (2**pp) == 1):
             bin_text += '1'
-            rem = rem%(2**pp)
+            rem = rem % (2**pp)
 
         else:
             bin_text += '0'
 
-#Else, the number is zero
+# Else, the number is zero
 else:
     bin_text = '0'
 
-#Convert the string into an integer
+# Convert the string into an integer
 final_binary = int(bin_text)
 
-#Return the original decimal and the new binary conversion to the screen.
+# Return the original decimal and the new binary conversion to the screen.
 print("Decimal: {0}".format(dec_num))
 print("Binary: {0}".format(final_binary))
 
-#END PROGRAM
+# END PROGRAM
 
 """
 1a)
@@ -95,7 +96,7 @@ print("Binary: {0}".format(final_binary))
 The process by which I determined the algorithm for converting from decimal to
 binary:
 
-Take a number. Figure out the largest power of 2 by which it is divisible. 
+Take a number. Figure out the largest power of 2 by which it is divisible.
 Do this by adding 1 to the power of 2, until the integer division yields 1.
 Find the modulus.
 Repeat procedure.
