@@ -3,7 +3,7 @@
 Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
-HW 1, Problem 1
+HW 1, Problem 1 - Binary
 Last edited: 7 Feb 2017
 
 Overview:
