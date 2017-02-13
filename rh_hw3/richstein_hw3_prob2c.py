@@ -8,23 +8,21 @@ Last edited: 12 February 2017
 
 Overview:
 ---------
-
+This is a program which should accurately calculate both roots of a quadratic
+equation. It tries to account for issues with machine precision.
 
 Input:
 ------
-
+The three coefficients of the quadratic equation to be solved.
 
 Output:
 -------
-
+The two roots of the quadratic equation, in scientific notation with 2 decimal
+places
 
 Program Limitations:
 --------------------
-
-
-Significant Program Variables:
-------------------------------
-
+Machine precision
 
 """
 from numpy import sqrt, array, sort, around
@@ -35,33 +33,34 @@ c = float(input("c: "))
 
 
 def new_quad(a, b, c):
-	disc_1 = b**2
-	disc_2 = 4 * a * c
-	disc_3 = disc_1 - disc_2
-	disc_4 = sqrt(disc_3)
-
+	# Had the discriminant calculation broken into several steps, but checked,
+	# and the precision was the same
 	discrim = sqrt(b**2 - (4 * a * c))
 
-	print("multi-step = {0}".format(disc_4))
-	print("single = {0}".format(discrim))
-
-	pos_d_num = -b + disc_4
-	neg_d_num = -b - disc_4
-
-	numers = array([pos_d_num, neg_d_num])
+	pos_d_num = -b + discrim  # Adding the discriminant
+	neg_d_num = -b - discrim  # Subtracting the discriminant
 	denom = 2 * a
 
+	numers = array([pos_d_num, neg_d_num])
+
+	# Checking to see whether I will be dividing a very small number by another
+	# small number
+
 	for nn in range(len(numers)):
-		if (abs(numers[nn]) < 1) and (abs(denom) < 0.1):
-			replace = (2 * c) / neg_d_num
+		if (abs(numers[nn]) < 0.1) and (abs(denom) < 1):
+			# If this is true, it will use the other equation to calculate the
+			# root instead
+			replace = (2 * c) / numers[nn - 1]
 			numers[nn] = replace
+			# If not true, will simply divide by the normal denominator, 2*a
 		else:
 			numers[nn] /= denom
 
-	return sort(numers)
+	return sort(numers)  # Going to return the roots from more negative to less
+						 # less negative
 
 
-results_test = array(new_quad(a, b, c))
+results = new_quad(a, b, c)
 
-print("\nSolutions, Method 3: ({0:.2e}, {1:.2e})".format(results_test[0],
-      results_test[1]))
+print("\nSolutions, Method 3: ({0:.2e}, {1:.2e})".format(results[0],
+      results[1]))

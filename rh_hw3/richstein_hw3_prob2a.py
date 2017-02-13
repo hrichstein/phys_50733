@@ -3,28 +3,25 @@
 Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
-HW 3, Prob 2a
+HW 3, Prob 2a, 2b
 Last edited: 12 February 2017
 
 Overview:
 ---------
-
+This program implements two functions using different equation forms to solve
+for the roots of the quadratic equation
 
 Input:
 ------
-
+The coefficients of the quadratic equation
 
 Output:
 -------
-
+The two roots, as found by each function
 
 Program Limitations:
 --------------------
-
-
-Significant Program Variables:
-------------------------------
-
+Machine precision
 
 """
 from numpy import sqrt, array, sort
@@ -32,6 +29,10 @@ from numpy import sqrt, array, sort
 a = float(input("Please enter the three coefficients. \na: "))
 b = float(input("b: "))
 c = float(input("c: "))
+
+# Function implementing the standard formula for finding the roots of the
+# quadratic equation
+###############################################################################
 
 
 def quad_func(a, b, c):
@@ -47,11 +48,9 @@ def quad_func(a, b, c):
 
 	return sort(results)
 
-
-results_test = array(quad_func(a, b, c))
-
-print("\nSolutions, Method 1: ({0}, {1})".format(results_test[0],
-      results_test[1]))
+# Function implementing the standard formula for finding the roots of the
+# quadratic equation
+###############################################################################
 
 
 def sec_q_func(a, b, c):
@@ -65,6 +64,17 @@ def sec_q_func(a, b, c):
 
 	return sort(results)
 
+###############################################################################
+# Calculating the roots and printing them
+# Printing all of the digits in order to best see where the roots differ
+
+func_1_res = quad_func(a, b, c)
+
 func_2_res = sec_q_func(a, b, c)
 
+print("\nSolutions, Method 1: ({0}, {1})".format(func_1_res[0],
+      func_1_res[1]))
+
 print("\nSolutions, Method 2: ({0}, {1})".format(func_2_res[0], func_2_res[1]))
+
+# END PROGRAM
