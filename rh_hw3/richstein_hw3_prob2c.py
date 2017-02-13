@@ -27,7 +27,7 @@ Significant Program Variables:
 
 
 """
-from numpy import sqrt, array, sort
+from numpy import sqrt, array, sort, around
 
 a = float(input("Please enter the three coefficients. \na: "))
 b = float(input("b: "))
@@ -40,41 +40,28 @@ def new_quad(a, b, c):
 	disc_3 = disc_1 - disc_2
 	disc_4 = sqrt(disc_3)
 
-	# first_term = -b / (2 * a)
+	discrim = sqrt(b**2 - (4 * a * c))
 
-	# sec_term = disc_4 / (2 * a)
+	print("multi-step = {0}".format(disc_4))
+	print("single = {0}".format(discrim))
 
-	# results = array([(first_term + sec_term), (first_term - sec_term)])
+	pos_d_num = -b + disc_4
+	neg_d_num = -b - disc_4
 
-	# return sort(results)
+	numers = array([pos_d_num, neg_d_num])
+	denom = 2 * a
 
-	# pos_d_num = -b + disc_4
-	# neg_d_num = -b - disc_4
+	for nn in range(len(numers)):
+		if (abs(numers[nn]) < 1) and (abs(denom) < 0.1):
+			replace = (2 * c) / neg_d_num
+			numers[nn] = replace
+		else:
+			numers[nn] /= denom
 
-	# denom = 2 * a
-
-	# results = array([(pos_d_num / denom), (neg_d_num / denom)])
-
-	# return sort(results)
-
-	# num = 2 * c
-	# pos_d_num =
-
-	# first_term = -b / (2 * c)
-
-	# sec_term = disc_4 / (2 * c)
-
-	# results = array([1 / (first_term + sec_term), 1 / (first_term - sec_term)])
-
-	large_root = (-b - disc_4) / (2 * a)
-	small_root = (c / a) / large_root
-
-	results = array([large_root, small_root])
-
-	return sort(results)
+	return sort(numers)
 
 
 results_test = array(new_quad(a, b, c))
 
-print("\nSolutions, Method 3: ({0}, {1})".format(results_test[0],
+print("\nSolutions, Method 3: ({0:.2e}, {1:.2e})".format(results_test[0],
       results_test[1]))
