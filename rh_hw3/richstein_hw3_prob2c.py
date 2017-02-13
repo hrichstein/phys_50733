@@ -64,3 +64,5 @@ results = new_quad(a, b, c)
 
 print("\nSolutions, Method 3: ({0:.2e}, {1:.2e})".format(results[0],
       results[1]))
+
+# END PROGRAM
