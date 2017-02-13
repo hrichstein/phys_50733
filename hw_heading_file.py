@@ -4,7 +4,7 @@ Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
 ASSIGNMENT
-Last edited: 
+Last edited:
 
 Overview:
 ---------
