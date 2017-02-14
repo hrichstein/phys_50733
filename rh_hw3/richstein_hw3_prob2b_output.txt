@@ -1,0 +1,54 @@
+Richstein, HW3
+-------------------------------------------------------------------------------
+
+2a and 2b output
+
+Please enter the three coefficients. 
+a: .001
+b: 1000
+c: .001
+
+Solutions, Method 1: (-999999.999999, -9.999894245993346e-07)
+
+Solutions, Method 2: (-1000010.5755125057, -1.000000000001e-06)
+
+-------------------------------------------------------------------------------
+
+See written justification for the two equations being equal.
+
+-------------------------------------------------------------------------------
+
+I see discrepancies of about 11 for the first solution value and an extremely,
+extremely small one for the second solution value.  I would say this is brought
+about by the machine's precision limitations. Subtraction and division are
+operators which the machine has a notoriously bad way of handling, especially
+when dealing with very large and very small numbers.
+
+One would think that the discriminant especially introduces a lot of room for 
+error because it involves 1000**2, and then 4(0.001**2), so subtracting a very
+small number from a very large number.  This value generally appears to be
+fine, though.
+
+In the first method, when adding the discriminant, the numerator is a number 
+very close to zero.  It's essentially subtracting numbers very close to each
+other. So, we're either dividing an extremely small number by a less small 
+number, or a larger negative number by a small number.
+
+In the second method, the numerator is small, but when the denominator 
+involved adding the discriminant, it is quite close to zero, especially since
+the numbers are again, so close.  So, we're dividing a fairly small number by 
+an extremely large number.  If the discriminant is subtracted, then we're 
+dividing a small number by a much larger negative number.
+
+-------------------------------------------------------------------------------
+
+2c output
+
+Please enter the three coefficients. 
+a: .001
+b: 1000
+c: .001
+
+Solutions, Method 3: (-1.00e+06, -1.00e-06)
+
+-------------------------------------------------------------------------------
