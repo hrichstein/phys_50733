@@ -3,8 +3,8 @@
 Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
-ASSIGNMENT
-Last edited:
+HW 3, Prob 3
+Last edited: 14 February 2017
 
 Overview:
 ---------
@@ -22,18 +22,17 @@ Program Limitations:
 --------------------
 
 
-Significant Program Variables:
-------------------------------
-
-
 """
 
-from numpy import exp
+from numpy import exp, arange, array
 from scipy.constants import k
 
-print(k)
+from matplotlib import pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
 
-T = float(input("Please enter the temperature in Kelvin: "))
+# print(k)
+
+# T = float(input("Please enter the temperature in Kelvin: "))
 
 rho = 6.022e28  # m^-3
 debye_t = 428  # K
@@ -42,7 +41,10 @@ V = 1000  # cm^3 of solid aluminum
 
 def inner_func(x):
 	numerator = (x**4) * exp(x)
-	denominator = (e**x - 1)**2
+	denominator = (exp(x) - 1)**2
+
+	if denominator == 0:
+		print("x={0}".format(x))
 
 	return numerator / denominator
 
@@ -58,8 +60,8 @@ def cv(T):
 
 	summ = float(0)
 
-	for nn in range(len(N)) > 0:
-		summ += inner_func(a + (k * h))
+	for nn in arange(1, N, 1):
+		summ += inner_func((a + (nn * h)))
 
 	integral = h * (first_term + second_term + summ)
 
@@ -67,6 +69,25 @@ def cv(T):
 
 	return c_v
 
-h_cap = cv(T)
+# h_cap = cv(T)
 
-print("The heat capacity is {0}".format(h_cap))
+temp_arr = arange(5, 505, 5)
+
+hc_arr = [[] for tt in range(len(temp_arr))]
+
+for tt in range(len(temp_arr)):
+	hc_arr[tt] = cv(temp_arr[tt])
+
+hc_arr = array(hc_arr) / 1000
+
+fig, ax = plt.subplots()
+ax.plot(temp_arr, hc_arr, color="purple")
+ax.set_xlabel("Temperature (K)")
+ax.set_ylabel("Heat Capacity (kJ)")
+ax.set_title("Heat Capacity vs. Temperature")
+ax.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
+
+plt.tight_layout()
+plt.show()
+
+# print("The heat capacity is {0}".format(h_cap))
