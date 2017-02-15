@@ -3,7 +3,7 @@
 Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
-HW 3, Prob 3
+HW 3, Prob 4
 Last edited: 14 February 2017
 
 Overview:
@@ -25,60 +25,20 @@ Program Limitations:
 """
 
 from numpy import exp, arange, array
-
 from matplotlib import pyplot as plt
 
-a = 0
-b = 3
-N = 30
-# h = (b - a) / N
 
-
-def t_func(x):
+def t_func(x):  # The function being integrated; will be called on a lot
 	result = exp(x**2)
 
 	return result
 
-x_arr = arange(0, 3.1, 0.1)
 
-# first_term = t_func(a)
-# second_term = t_func(b)
-
-# sum_3 = float(0)
-# sum_4 = float(0)
-
-# for xx in x_arr:
-# 	for kk in range(1, N, 2):
-# 		sum_3 += t_func(a + (kk * h))
-
-# 	third_term = 4 * sum_3
-
-# 	for kk in range(2, N, 2):
-# 		sum_4 += t_func(a + (kk * h))
-
-# 	fourth_term = 2 * sum_4
-
-# 	simp_int = (h / 3) * (first_term + second_term + third_term + fourth_term)
-
-# # print("Integral is {0}".format(simp_int))
-
-# first_range = arange(1, 10, 2)
-# second_range = arange(2, 11, 2)
-
-# int_val_arr = [[] for xx in range(len(x_arr))]
-
-# for xx in range(len(x_arr)):
-# 	sum_3 += t_func(a + (first_range[xx] * h))
-# 	sum_4 += t_func(a + (second_range[xx] * h))
-
-# 	simp_int = (h / 3) * (first_term + second_term + (4 * sum_3) + (2 * sum_4))
-
-# 	int_val_arr[xx] = simp_int
-
-kk = 1
+x_arr = arange(0, 3.1, 0.1)  # Creating an array to house the edges of all the
+							 # slices
 
 
-def int_steps(a, b, N):
+def int_steps(a, b, N):  # Calculating the area of each little slice
 	h = (b - a) / N
 
 	sum_3 = float(0)
@@ -91,40 +51,47 @@ def int_steps(a, b, N):
 		sum_3 += t_func(a + (kk * h))
 
 	third_term = 4 * sum_3
-	
-	print("third term : {0}".format(third_term))
+
 	for kk in range(2, N, 2):
 		sum_4 += t_func(a + (kk * h))
 
 	fourth_term = 2 * sum_4
 
-	print("fourth term : {0}".format(fourth_term))
-
 	simp_int = (h / 3) * (first_term + second_term + third_term + fourth_term)
 
 	return simp_int
 
-int_val_arr = [[] for xx in range(len(x_arr))]
-int_val_arr[0] = 0
-
+# Will have the areas of each individual slice
 little_areas = [[] for xx in range(len(x_arr))]
-little_areas[0] = 0
+little_areas[0] = 0  # First value set to zero, because at point zero, there is
+					 # no area under the curve
 
-summ = 0
+# Going to store the sum of the slice areas here.
+int_val_arr = [[] for xx in range(len(x_arr))]
+int_val_arr[0] = 0  # Again, first term 0, so zero will be plotted
+
+summ = float(0)
 
 for xx in range(len(x_arr) - 1):
-	a = x_arr[xx]
-	b = x_arr[xx + 1]
+	a = x_arr[xx]  # Setting the lower boundary
+	b = x_arr[xx + 1]  # Setting the upper boundary
 
-	little_areas[xx + 1] = int_steps(a, b, 10)
+	N = 10  # Picking the number of slices to use when calculating the area
+			# between one edge of the larger slices and the other
 
-	summ += little_areas[xx + 1]
+	little_areas[xx + 1] = int_steps(a, b, N)  # Storing this value
 
-	int_val_arr[xx + 1] = summ
+	summ += little_areas[xx + 1]  # Adding this value to a sum
 
-	print("x is {0} and integral is {1}".format(x_arr[xx], int_val_arr[xx + 1]))
+	int_val_arr[xx + 1] = summ  # Putting the sum in an array for future plot
 
 int_val_arr = array(int_val_arr)
 
-plt.plot(x_arr, int_val_arr)
-plt.show()	
+fig, ax = plt.subplots()
+ax.plot(x_arr, int_val_arr, color="purple")
+ax.set_xlabel("x-value")
+ax.set_ylabel("E(x): Area under the curve up to this point")
+ax.set_title("Plot of E(x)")
+
+plt.tight_layout()
+plt.show()
