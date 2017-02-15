@@ -3,8 +3,8 @@
 Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
-HW 3, Prob 2c
-Last edited: 12 February 2017
+HW 3, Prob 2c: The quadratic equation
+Last edited: 15 February 2017
 
 Overview:
 ---------
@@ -22,10 +22,11 @@ places
 
 Program Limitations:
 --------------------
-Machine precision
+Machine precision, complex numbers
 
 """
-from numpy import sqrt, array, sort, around
+from numpy import sqrt, array, sort
+from cmath import sqrt as csqrt
 
 a = float(input("Please enter the three coefficients. \na: "))
 b = float(input("b: "))
@@ -35,7 +36,11 @@ c = float(input("c: "))
 def new_quad(a, b, c):
 	# Had the discriminant calculation broken into several steps, but checked,
 	# and the precision was the same
-	discrim = sqrt(b**2 - (4 * a * c))
+	if (b**2 - (4 * a * c)) >= 0:
+		discrim = sqrt(b**2 - (4 * a * c))
+	else:
+		discrim = csqrt(b**2 - (4 * a * c))  # If complex numbers are going to
+											 # be involved
 
 	pos_d_num = -b + discrim  # Adding the discriminant
 	neg_d_num = -b - discrim  # Subtracting the discriminant

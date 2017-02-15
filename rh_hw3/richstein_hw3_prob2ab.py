@@ -30,9 +30,9 @@ a = float(input("Please enter the three coefficients. \na: "))
 b = float(input("b: "))
 c = float(input("c: "))
 
+###############################################################################
 # Function implementing the standard formula for finding the roots of the
 # quadratic equation
-###############################################################################
 
 
 def quad_func(a, b, c):
@@ -48,9 +48,9 @@ def quad_func(a, b, c):
 
 	return sort(results)
 
-# Function implementing the standard formula for finding the roots of the
-# quadratic equation
 ###############################################################################
+# Function implementing the a different, but equivalent formula for finding the
+# roots of the quadratic equation
 
 
 def sec_q_func(a, b, c):

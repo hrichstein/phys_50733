@@ -3,28 +3,20 @@
 Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
-ASSIGNMENT
-Last edited:
+HW 3, Prob 1: Plotting experimental data
+Last edited: 15 February 2017
 
 Overview:
 ---------
-
+This program reads in a grid of data and outputs a density plot
 
 Input:
 ------
-
+Data file: stm.txt
 
 Output:
 -------
-
-
-Program Limitations:
---------------------
-
-
-Significant Program Variables:
-------------------------------
-
+A density plot showing the structure of a silicon surface
 
 """
 
