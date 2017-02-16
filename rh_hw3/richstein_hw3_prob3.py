@@ -24,9 +24,8 @@ A plot showing heat capacity as a function of temperature
 
 from numpy import exp, arange, array
 from scipy.constants import k
-
 from matplotlib import pyplot as plt
-from matplotlib.ticker import FormatStrFormatter
+
 
 rho = 6.022e28  # m^-3
 debye_t = 428  # K
@@ -81,7 +80,6 @@ ax.plot(temp_arr, hc_arr, color="purple")
 ax.set_xlabel("Temperature (K)")
 ax.set_ylabel("Heat Capacity (J/K)")
 ax.set_title("Heat Capacity vs. Temperature")
-# ax.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
 
 plt.tight_layout()
 plt.show()
