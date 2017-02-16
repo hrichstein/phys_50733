@@ -30,7 +30,7 @@ from matplotlib.ticker import FormatStrFormatter
 
 rho = 6.022e28  # m^-3
 debye_t = 428  # K
-V = 1000  # cm^3 of solid aluminum
+V = 1e-3  # m^3 of solid aluminum
 # Units on k are J/K (Joules per Kelvin)
 
 
@@ -74,14 +74,14 @@ for tt in range(len(temp_arr)):
 	hc_arr[tt] = cv(temp_arr[tt])
 
 # Convertaing to kJ, just because the numbers are so large
-hc_arr = array(hc_arr) / 1000
+hc_arr = array(hc_arr)
 
 fig, ax = plt.subplots()
 ax.plot(temp_arr, hc_arr, color="purple")
 ax.set_xlabel("Temperature (K)")
-ax.set_ylabel("Heat Capacity (kJ)")
+ax.set_ylabel("Heat Capacity (J/K)")
 ax.set_title("Heat Capacity vs. Temperature")
-ax.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
+# ax.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
 
 plt.tight_layout()
 plt.show()
