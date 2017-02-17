@@ -9,25 +9,24 @@ as observed by someone on Earth and someone on the spaceship.
 
 *Output for Problem 1*
 
-The output of the program for:
-v = 0.90c
-v = 0.98c
-v = 0.999c
+The output of the program for:  
+v = 0.90c  
+v = 0.98c  
+v = 0.999c  
 
 **Code for Problem 2**
 
-This program calculates and returns the binding energy and binding energy per
-nucleon of an atom.
+This program calculates and returns the binding energy and binding energy per nucleon of an atom.
 
 *Output for Problem 2*
 
-The output of the program for:
-A = 58
-Z = 28
+The output of the program for:  
+A = 58  
+Z = 28  
 
-A = 59
-Z = 28
+A = 59  
+Z = 28  
 
-A = 58
-Z = 27
+A = 58  
+Z = 27  
 
