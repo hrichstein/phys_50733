@@ -9,7 +9,7 @@ of 10, first using the summation to calculate e^x and then taking the inverse.
 
 *Output for February 1*
 
-A .txt file comparing the e^(-x) values for my function vs. the numpy exp().
+A .txt file comparing the e<sup>-x</sup> values for my function vs. the numpy exp().
 
 **Code for Simpsons Problem, February 6**
 
