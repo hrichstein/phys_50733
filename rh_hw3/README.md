@@ -1,4 +1,4 @@
-This subdirectory contains 4 homework problems and their outputs.
+This subdirectory contains 4 homework problems and their outputs in .png files.
 
 **Code for Problem 1**
 
