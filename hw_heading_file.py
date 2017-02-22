@@ -18,12 +18,4 @@ Output:
 -------
 
 
-Program Limitations:
---------------------
-
-
-Significant Program Variables:
-------------------------------
-
-
 """
