@@ -15,7 +15,7 @@ the half-life, whether each atom will decay during any given time interval.
 Input:
 ------
 None -
-Program does need constants specified, such as beginning number of atoms of 
+Program does need constants specified, such as beginning number of atoms of
 each type, the half-lives of the isotopes, the time interval, and the length of
 time the process will be allowed to occur.
 
@@ -107,6 +107,7 @@ ax.plot(tpoints, bi_213pts, label="Bi 213")
 ax.plot(tpoints, tl_209pts, label="Tl 209")
 ax.plot(tpoints, pb_209pts, label="Pb 209")
 ax.plot(tpoints, bi_209pts, label="Bi 209")
+
 ax.set_xlabel("Time (s)")
 ax.set_ylabel("Number of Atoms")
 ax.set_title("Radioactive Decay of Bi 213")
@@ -114,5 +115,7 @@ ax.legend(loc="best")
 
 plt.tight_layout()
 plt.show()
+
+plt.savefig("richstein_hw4_prob2.png")
 
 # END PROGRAM
