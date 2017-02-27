@@ -4,7 +4,7 @@ Student Name: Hannah Richstein
 Professor Name: Dr. Frinchaboy
 Class: PHYS 50733
 HW 4, Problem 1 - Radioactive Decay
-Last edited: 22 February 2017
+Last edited: 27 February 2017
 
 Overview:
 ---------
@@ -21,6 +21,7 @@ time the process will be allowed to occur.
 
 Output:
 -------
+A running counter of the number of atoms of each isotope.
 A plot showing the populations of the four isotopes as time progresses.
 It will also save this plot.
 
@@ -36,9 +37,9 @@ N_209_tl = 0
 N_209_pb = 0
 N_209_bi = 0
 
-output_arr = array([N_213_bi,N_209_tl,N_209_pb,N_209_bi])
+output_arr = array([N_213_bi,N_209_tl,N_209_pb,N_209_bi])  # for printing
 
-tmin = 0
+tmin = 0							 # for printing
 tmax = 20000  						 # the number of time steps to be taken
 h = 1.0  							 # size of time step in seconds
 
@@ -65,7 +66,7 @@ tl_209pts = [[] for tt in range(len(tpoints))]
 pb_209pts = [[] for tt in range(len(tpoints))]
 bi_209pts = [[] for tt in range(len(tpoints))]
 
-print("Time = (sec) [Bi 213,Tl 209,Pb 209,Bi 209]\n")
+print("Time = (sec) [Bi 213,Tl 209,Pb 209,Bi 209]\n")  # header of print output
 print("t = {:<6}".format(tmin) + "{0}".format(output_arr))
 
 for tt in range(len(tpoints)):
@@ -123,8 +124,10 @@ ax.set_title("Radioactive Decay of Bi 213")
 ax.legend(loc="best")
 
 plt.tight_layout()
+
+plt.savefig("richstein_hw4_prob1_output.png")
+
 plt.show()
 
-plt.savefig("richstein_hw4_prob2_output.png")
 
 # END PROGRAM

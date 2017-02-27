@@ -12,9 +12,13 @@ the half-life, whether each atom will decay during any given time interval.
 A .png file with a plot showing the number of atoms of each isotope at each of
 the 20,000 time steps.
 
+A .txt file with the running counter of atoms per isotope.
+
 **Code for Problem 2**
 
 This script uses the importance sampling formula to calculate the value for an
 integral using Monte Carlo integration.
 
 *Output for Problem 2*
+
+A .txt file containing the final calculated value of the integral.
