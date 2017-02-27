@@ -22,11 +22,12 @@ time the process will be allowed to occur.
 Output:
 -------
 A plot showing the populations of the four isotopes as time progresses.
+It will also save this plot.
 
 """
 
 from random import random
-from numpy import arange
+from numpy import arange, array
 from matplotlib import pyplot as plt
 
 
@@ -35,7 +36,9 @@ N_209_tl = 0
 N_209_pb = 0
 N_209_bi = 0
 
+output_arr = array([N_213_bi,N_209_tl,N_209_pb,N_209_bi])
 
+tmin = 0
 tmax = 20000  						 # the number of time steps to be taken
 h = 1.0  							 # size of time step in seconds
 
@@ -62,6 +65,8 @@ tl_209pts = [[] for tt in range(len(tpoints))]
 pb_209pts = [[] for tt in range(len(tpoints))]
 bi_209pts = [[] for tt in range(len(tpoints))]
 
+print("Time = (sec) [Bi 213,Tl 209,Pb 209,Bi 209]\n")
+print("t = {:<6}".format(tmin) + "{0}".format(output_arr))
 
 for tt in range(len(tpoints)):
 	bi_213pts[tt] = N_213_bi		 # Assesing the number of each type of atom
@@ -102,6 +107,10 @@ for tt in range(len(tpoints)):
 	N_209_pb -= decay
 	N_209_bi += decay
 
+	output_arr = array([N_213_bi,N_209_tl,N_209_pb,N_209_bi])
+
+	print("t = {:<7}".format(tt+1) + "{0}".format(output_arr))
+
 fig, ax = plt.subplots()			 # Setting up plotting, then plotting
 ax.plot(tpoints, bi_213pts, label="Bi 213")
 ax.plot(tpoints, tl_209pts, label="Tl 209")
@@ -116,6 +125,6 @@ ax.legend(loc="best")
 plt.tight_layout()
 plt.show()
 
-plt.savefig("richstein_hw4_prob2.png")
+plt.savefig("richstein_hw4_prob2_output.png")
 
 # END PROGRAM
