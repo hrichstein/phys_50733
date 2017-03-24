@@ -1,0 +1,17 @@
+
+a)
+
+Best-Fit Values - Linear:
+
+Slope: 4.70
+Intercept: 17.65
+
+Best-Fit Values - Quadratic:
+
+Quadratic Coefficient: -0.85
+Linear Coefficient: 5.94
+Constant: 17.50
+
+b)
+
+None of these functions fits very well, but from the three, the broken linear is probably the best. The data is certainly not linear, and the quadratic is not following the trend we could expect. We would want this to curve upwards, so objects at higher redshift would have higher magnitudes. When trying different methods of filtering the data, there was a way to have the quadratic curve the other way, but then the linear fit had a negative slope. That was done by further restricting the allowed z_err values.
