@@ -1,0 +1,16 @@
+a)
+
+Best-Fit Values:
+
+Amplitude: -10.00
+Phase: -0.24
+Offset: 9.25
+
+b)
+
+Overall Average Temperature: 9.25 degrees Celsius
+Coldest Daily Average Temperature: -0.74 degrees Celsius
+Hottest Daily Average Temperature: 19.25 degrees Celsius
+c
+
+The b parameter is the horizontal shift of the cosine function. If the shift were zero, we'd be assuming the minimum temperature occurred on January 1st of every year. This isn't quite true, though we know it probably occurs sometime around there, so the shift shouldn't be too large. The value here makes sense, and suggests the minimum temperature occurs a short time after January 1st.
