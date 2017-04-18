@@ -82,8 +82,8 @@ plt.show()
 # Leapfrog
 
 
-theta_2_init = 177 # degrees 
-# theta_2_init = -92 # degrees 
+# theta_2_init = 177 # degrees 
+theta_2_init = -92 # degrees 
 x2points = []
 # h = 0.01
 
