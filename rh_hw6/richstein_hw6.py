@@ -35,7 +35,7 @@ theta_init = 177 # degrees from vertical
 arm_length = 0.05 # meters
 
 g = 9.81
-h = 0.5 # step size
+# h = 0.5 # step size
 
 # d_theta = omega 8.45
 # d_omega = -g/l sin(theta) 8.46
@@ -43,6 +43,8 @@ h = 0.5 # step size
 # define some function here
 
 r = [theta_init, 0]
+
+# r = [-92,0]
 
 def pend_func(r,t):
 	# print(r)
@@ -56,8 +58,8 @@ def pend_func(r,t):
 
 a = 0.0  # first time step
 b = 10.0  # last time step
-# N = 10  # Number of steps
-# h = (b-a)/N  # step size
+N = 5000  # Number of steps
+h = (b-a)/N  # step size
 
 tpoints = np.arange(a, b, h)
 xpoints = []  # actualy theta values
@@ -72,36 +74,54 @@ for t in tpoints:
 	x += (k1+2*k2+2*k3+k4)/6
 	# print(x)
 
+plt.plot(tpoints,xpoints)
+plt.show()
+
 # b)
 
 # Leapfrog
 
-theta_2_init = -92 # degrees 
-x2points = []
 
-r2 = [theta_2_init, 0]
+theta_2_init = 177 # degrees 
+# theta_2_init = -92 # degrees 
+x2points = []
+# h = 0.01
+
+r2 = [theta_2_init, 0.0]
 x2 = r2
 
-def leapfrog(init, half, t, array):
-	next_full = init + h * pend_func(half, t + 0.5*h)
-	array.append(next_full[0])
-	next_half = half + h * pend_func(next_full, t + h)
-	array.append(next_half[0])
-
-	return np.array([next_full,next_half])
-
-
-x2points.append(x2[0])
-f0 = r2[0]
-f1 = x2 + 0.5*h * pend_func(x2, t)  # x(t+0.5h)
-
-input_arr = [f0,f1]
-
 for t in tpoints:
-	input_arr = leapfrog(input_arr[0], input_arr[1], t, x2points)
+	x2points.append(x2[0])
+	lf1 = h * pend_func(x2, t)
+	lf2 = h * pend_func(x2 + 0.5*lf1, t + 0.5*h)
+	lf3 = h * pend_func(x2 + lf2, t + h)
+	x2 += 0.5*lf1 + lf3
+
+# def leapfrog(init, half, t, array):
+# 	next_full = init + h * pend_func(half, t + 0.5*h)
+# 	array.append(next_full[0])
+# 	next_half = half + h * pend_func(next_full, t + h)
+# 	array.append(next_half[0])
+
+# 	return np.array([next_full,next_half])
 
 
+# x2points.append(x2[0])
+# f0 = r2[0]
+# f1 = x2 + 0.5*h * pend_func(x2, t)  # x(t+0.5h)
 
+# input_arr = [f0,f1]
+
+# spec_t_points = np.arange(0,b,h*2)
+
+# for t in spec_t_points:
+# 	input_arr = leapfrog(input_arr[0], input_arr[1], t, x2points)
+
+# x2points.pop()
+
+
+plt.plot(tpoints,x2points)
+plt.show()
 # f1 = x2 + 0.5*h * pend_func(x2, t)  # x(t+0.5h)
 
 
