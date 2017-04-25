@@ -1,4 +1,4 @@
-This subdirectory contains 1 homework problem and its outputs in png and gif files.
+This subdirectory contains 1 homework problem with 2 parts and the corresponding outputs in png and gif files.
 
 **Code for Problem 1a**
 
