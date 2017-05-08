@@ -8,7 +8,9 @@ Last edited: 24 April 2017
 
 Overview:
 ---------
-This script plots the motion of a nonlinear pendulum using the 4th-order Runga-Kutta method. It first shows theta as a function of time and then creates a series of .png files showing the motion of the pendulum.
+This script plots the motion of a nonlinear pendulum using the 4th-order 
+Runga-Kutta method. It first shows theta as a function of time and then 
+creates a series of .png files showing the motion of the pendulum.
 
 Input:
 ------

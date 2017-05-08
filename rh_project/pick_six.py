@@ -12,9 +12,11 @@ rc('font', **{'family': 'serif', 'serif':['Computer Modern']})
 def find_vel_init(M1, M2, a):
 	period = np.sqrt(4 * np.pi**2 * a**3 / G / (M1 + M2)) # period in days
 
-	print("Period is {0:.3f} days".format(period))
+	print("Period is {0:.3f} years".format(period))
 
-	v = 2 * np.pi * a / period  # AU/days
+	v = 2 * np.pi * a / period  # AU/year
+
+	print(v)
 
 	return v
 
@@ -59,6 +61,8 @@ def ghetto(arr):
 
 
 	ax = -G * red_mass * x / np.sqrt(x**2 + y**2)**3
+	# ax += -G * M1 * 
+
 	ay = -G * red_mass * y / np.sqrt(x**2 + y**2)**3
 
 	ac_arr = np.array([ax, ay], float)
@@ -77,7 +81,7 @@ r = A/2  # semi-major axis & radius
 test_plan = 1 # AU
 
 a = 0
-b = .05
+b = .02
 N = 100000
 h = (b-a)/N
 
@@ -93,9 +97,9 @@ s1 = np.array([r, 0], float)
 s2 = np.array([-r,0], float)
 p = np.array([test_plan, 0], float)
 
-# s_vel = find_vel_init(M1, red_mass, r)
+s_vel = find_vel_init(M1, red_mass, r)
 
-s_vel = np.sqrt(10*G*red_mass)
+# s_vel = np.sqrt(10*G*red_mass)
 
 p_vel = find_vel_init(red_mass, 0, test_plan)
 
