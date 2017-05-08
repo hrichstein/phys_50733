@@ -56,7 +56,7 @@ def find_vel_init(Mc, a):
 
 	period = np.sqrt(4 * np.pi**2 * a**3 / G / (Mc)) # period in years
 
-	print("Period is {0:.3f} years".format(period))
+	print("\n Period is {0:.3f} years".format(period))
 
 	v = np.sqrt(G * Mc * (2-1)/a)
 
@@ -130,7 +130,7 @@ r = A/2  # semi-major axis & radius of circle they will be orbiting
 # Testing radius of planet
 test_plan = 200  # AU
 
-test_plan_arr = np.arange(200, 250, 5)
+test_plan_arr = np.arange(230, 300, 10)
 
 # Mass Settings
 M1 = 1
@@ -146,8 +146,13 @@ for xx in test_plan_arr:
 		"{1} AU from center of mass.".format(A, test_plan))
 
 	# Calculating initial velocities
+	print("\nFor Stars:")
 	s_period, s_vel = find_vel_init(red_mass, r)
+	print("\nFor Planet")
 	p_period, p_vel = find_vel_init(red_mass, test_plan)
+
+	E = (0.5*p_vel**2) - (G*red_mass/test_plan)
+	print(r"Energy coefficient (to be multiplied by Earth mass): {0:.2f} AU$^2$/yr$^2$").format(E)
 
 	# Time setup
 	a = 0
