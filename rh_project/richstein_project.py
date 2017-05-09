@@ -148,7 +148,8 @@ def rk4(param):
 	Rs2p = np.sqrt((s2x - px)**2 + (s2y - py)**2)
 
 	# Calculating the accelerations of the two stars; using the reduced mass,
-	# equivalent one-body problem
+	# equivalent one-body problem; radius to center of mass is just x and y
+	# because the center of mass is at (0,0)
 	a1x = -G * red_mass * s1x / np.sqrt(s1x**2 + s1y**2)**3
 	a1y = -G * red_mass * s1y / np.sqrt(s1x**2 + s1y**2)**3
 
@@ -174,6 +175,12 @@ G = 4 * np.pi**2  # AU^3 yr^-2 M_sun^-1
 A = float(input("Please input the distance between the two stars in AU: "))
 r = A/2  # semi-major axis & radius of circle they will be orbiting
 
+# Mass Settings
+M1 = 1  # solar mass
+M2 = 1  # solar mass
+
+red_mass = M1*M2/(M1+M2)  # Reduced mass (solar)
+
 # Taking user input to define which planet positions will be used.
 intake = [ii for ii in input("\nPlease input the first separation distance from "
 	+ "the center of mass\nyou would like the planet to start at, \n"
@@ -182,6 +189,7 @@ intake = [ii for ii in input("\nPlease input the first separation distance from 
 	+ "specify whether you would like the planet \nto begin on a line parallel "
 	+ "or perpendicular to the two stars: ").split(',')]
 
+# Creating array of distances to use to test where the orbit is stable or unstable
 start = float(intake[0])
 stop = float(intake[1])
 step = float(intake[2])
@@ -189,19 +197,14 @@ x_y_flag = str(intake[3])
 
 test_plan_arr = np.arange(start, stop+step, step, dtype=float)
 
-# Mass Settings
-M1 = 1  # solar mass
-M2 = 1  # solar mass
-
-red_mass = M1*M2/(M1+M2)  # Reduced mass (solar)
-
 # Flag for use when only trying to find a certain number of stable orbits.
 # possible = 0
 
 # Flag for whether or not the planet is orbiting one star or both.
-p_around_s = 0
 
 for xx in test_plan_arr:
+
+	p_around_s = 0
 
 	test_plan = xx  # AU
 
@@ -210,15 +213,25 @@ for xx in test_plan_arr:
 	s1 = np.array([r, 0], float)
 	s2 = np.array([-r,0], float)
 
-	if "x" in x_y_flag:
+	if "x" in x_y_flag:  # The planet begins on the x-axis
 		p = np.array([test_plan, 0], float)
-	else:
+	else:  # The planet begins on the y-axis
 		p = np.array([0, test_plan], float)
 
+	# Calculating the distance between the planet and star 1, to try to
+	# determine whether it would be better to test the case of the planet
+	# orbiting around both bodies, or just star 1.
 	dist_to_star = np.sqrt((p[0] - s1[0])**2 + (p[1] - s1[1])**2)
 
-	if ((dist_to_star) < (A)):
-		p_around_s = 1
+	# If the planet is within a certain distance of the star, based on a
+	# comparison to the separation between the stars, set the flag to say the
+	# planet is orbiting star 1.
+
+	if ((dist_to_star) <= (0.55 * A)):  # This constant may need to be changed
+		p_around_s = 1				    # depending on the size of A. Just need
+										# to think about how far away the planet
+										# can realistically be orbiting a star,
+										# especially in the binary system
 
 	if p_around_s:
 
@@ -246,28 +259,24 @@ for xx in test_plan_arr:
 	s_period, s_vel = find_vel_init(red_mass, r)
 
 	print("\nFor Planet:")
-	if p_around_s:
-		p_period, p_vel = find_vel_tight(M1, s1, p)
+	if p_around_s:  # Calculating assuming planet is orbiting star 1
+		p_period, p_vel = find_vel_tight(M1, s1, p)  
 		center_bod = M1
 	else:		
 		p_period, p_vel = find_vel_init(red_mass, test_plan)
 		center_bod = red_mass
 
 		# Velocities
-	s1_v0 = np.array([0, s_vel], float)
-	s2_v0 = np.array([0, -s_vel], float)
+	s1_v0 = np.array([0, s_vel], float)  # Initially will only be in y-direction
+	s2_v0 = np.array([0, -s_vel], float) # because I've set up on x-axis
 
-	if "x" in x_y_flag:
-		p_v0 = np.array([0, p_vel], float)
+	if "x" in x_y_flag:  # Initial velocity direction depends on which axis user
+		p_v0 = np.array([0, p_vel], float)  # specified
 	else:
 		p_v0 = np.array([p_vel, 0], float)
 
-	if p_around_s:
-		dist_to_star = np.sqrt((p[0] - s1[0])**2 + (p[1] - s1[1])**2)
-
 	# Finding total energy to see if there is a trend for stable and unstable
 	# orbits.
-
 	E = (0.5*p_vel**2) - (G*center_bod/test_plan)
 	print("\nEnergy coefficient (to be multiplied by Earth mass): {0:.2f} AU^2/yr^2".format(E))
 
@@ -341,12 +350,17 @@ for xx in test_plan_arr:
 
 		# Checking to see if the planet has been flung off yet
 		vel = np.sqrt(rk_params[-1][0]**2 + rk_params[-1][1]**2)
-		rad = np.sqrt(rk_params[2][0]**2 + rk_params[2][1]**2)
-		esc_vel = np.sqrt(2 * G * red_mass / rad)
+		if p_around_s:
+			rad = np.sqrt((rk_params[2][0]-rk_params[0][0])**2 + \
+				(rk_params[2][1]-rk_params[0][1])**2)
+			esc_vel = np.sqrt(2 * G * M1 / rad)
+		else:
+			rad = np.sqrt(rk_params[2][0]**2 + rk_params[2][1]**2)
+			esc_vel = np.sqrt(2 * G * red_mass / rad)
 
 		# If the planet has been, stop the loop
 		if A < 100:
-			if vel >= (3*esc_vel):
+			if vel >= (5*esc_vel):
 				final_time = tt
 				if final_time == 0:
 					final_time += 1
@@ -396,9 +410,9 @@ for xx in test_plan_arr:
 
 	# Saving plots
 	if final_time != 0:	
-		plt.savefig("Fail_for_{0:.1f}_star_{1:.1f}{2}_planet_{3:.0f}.png".format(A, test_plan, x_y_flag, end_time))
+		plt.savefig("Fail_for_{0:.1f}_star_{1:.1f}{2}_planet_{3:.0f}2.png".format(A, test_plan, x_y_flag, end_time))
 	else:
-		plt.savefig("Possible_for_{0:.1f}_star_{1:.1f}{2}_planet_{3:.0f}.png".format(A, test_plan, x_y_flag, end_time))
+		plt.savefig("Possible_for_{0:.1f}_star_{1:.1f}{2}_planet_{3:.0f}2.png".format(A, test_plan, x_y_flag, end_time))
 		# possible += 1
 	
 	plt.show()

@@ -24,7 +24,8 @@ Output:
 This will print to the terminal screen a description of the case being
 investigated, the period and initial velocity for the stars and planet, and the
 energy coefficient which should be multiplied by the mass of the Earth to
-determine the 
+determine the connection between stable orbits and total energy. This will also
+produce and save plots of the orbits.
 
 """
 
@@ -108,7 +109,7 @@ def find_vel_tight(Ms, s, p):
 
 	v = np.sqrt(G * Ms * (2-1)/dist)
 
-	print("Initial velocity: {0:.2f} AU/years".format(v))
+	print("Initial velocity: {0:.2f} AU/year".format(v))
 
 	return period, v	
 
@@ -194,26 +195,15 @@ M2 = 1  # solar mass
 
 red_mass = M1*M2/(M1+M2)  # Reduced mass (solar)
 
-possible = 0
+# Flag for use when only trying to find a certain number of stable orbits.
+# possible = 0
+
+# Flag for whether or not the planet is orbiting one star or both.
 p_around_s = 0
 
 for xx in test_plan_arr:
 
 	test_plan = xx  # AU
-
-	print("\n------------------------------------------------------------------"
-		+"------------------------")
-	print("Case for Binary Stars separated by {0} AU and planet starting at "
-		+"{1} AU from center of mass.".format(A, test_plan))
-	print("\n------------------------------------------------------------------"
-		+"------------------------")
-
-
-	if (abs(A/2-start) < (0.5 * A)):
-		p_around_s = 1
-		print("\n*********************************")
-		print("Planet is orbiting a single star.")
-		print("*********************************")
 
 	# Initial conditions
 		# Positions
@@ -224,6 +214,32 @@ for xx in test_plan_arr:
 		p = np.array([test_plan, 0], float)
 	else:
 		p = np.array([0, test_plan], float)
+
+	dist_to_star = np.sqrt((p[0] - s1[0])**2 + (p[1] - s1[1])**2)
+
+	if ((dist_to_star) < (A)):
+		p_around_s = 1
+
+	if p_around_s:
+
+		print("\n------------------------------------------------------------------"
+		+"------------------------")
+		print("Case for Binary Stars separated by {0:.1f} AU and planet starting at ".format(A)
+		+"{0:.1f} AU from the star it is orbiting.".format(dist_to_star))
+		print("------------------------------------------------------------------"
+		+"------------------------")
+
+		print("\n*********************************")
+		print("Planet is orbiting a single star.")
+		print("*********************************")
+
+	else:
+		print("\n------------------------------------------------------------------"
+			+"------------------------")
+		print("Case for Binary Stars separated by {0:.1f} AU and planet starting at ".format(A)
+			+"{0:.1f} AU from center of mass.".format(test_plan))
+		print("------------------------------------------------------------------"
+			+"------------------------")
 
 	# Calculating initial velocities
 	print("\nFor Stars:")
@@ -246,26 +262,34 @@ for xx in test_plan_arr:
 	else:
 		p_v0 = np.array([p_vel, 0], float)
 
+	if p_around_s:
+		dist_to_star = np.sqrt((p[0] - s1[0])**2 + (p[1] - s1[1])**2)
+
+	# Finding total energy to see if there is a trend for stable and unstable
+	# orbits.
+
 	E = (0.5*p_vel**2) - (G*center_bod/test_plan)
 	print("\nEnergy coefficient (to be multiplied by Earth mass): {0:.2f} AU^2/yr^2".format(E))
 
 	# Setting the length of time the program will run based on whether the planet
 	# will be orbiting both stars or just one.
 	if p_around_s:
-		end_time = 1.5 * s_period
+		end_time = 5 * s_period
 	elif A > 150:
 		end_time = 5 * p_period
 	else:
-		end_time = 1.25 * p_period
+		end_time = 2 * p_period
 
 	# Trying to set an acceptable number of steps that won't be overkill 
 	# considering the length of the period
 	if end_time < 1000:
 		step_num = 1e5
+	elif end_time < 3000:
+		step_num = 3e5
 	elif end_time < 5000:
 		step_num = 5e5
 	else:
-		step_num = 1e6
+		step_num = 8e5
 
 	# Time setup
 	a = 0
@@ -274,7 +298,6 @@ for xx in test_plan_arr:
 	h = (b-a)/N
 
 	tpoints = np.arange(a, b, h, dtype=int)	
-
 
 	# Creating empty arrays to be filled during the Runge-Kutta process
 	xpts_s1 = [[] for tt in range(len(tpoints))]
@@ -328,7 +351,7 @@ for xx in test_plan_arr:
 				print("Escape velocity limit reached.")
 				break
 		else:
-			if vel >= (15*esc_vel):
+			if vel >= (10*esc_vel):
 				final_time = tt
 				if final_time == 0:
 					final_time += 1
@@ -351,18 +374,33 @@ for xx in test_plan_arr:
 	fig, ax = plt.subplots()
 	ax.set_xlabel("AU")
 	ax.set_ylabel("AU")
-	ax.set_title("Stars {0} AU Apart, Planet {1} AU Away".format(A, test_plan))
+	if p_around_s:
+		ax.set_title("Stars {0:.1f} AU Apart, Planet {1:.1f} AU Away from Star".format(A, dist_to_star))
+
+	else:
+		ax.set_title("Stars {0:.1f} AU Apart, Planet beginning {1:.1f} AU Away from origin".format(A, test_plan))
+	# ax.text(0, 0.95, "Energy Coefficient = {0:.3f}".format(E),
+ #        horizontalalignment='left',
+ #        verticalalignment='top',
+ #        transform=ax.transAxes)
+	# ax.text(0.95,0.95,"Initial Velocity of Planet: {0:.1f}".format(p_vel),
+	# 	horizontalalignment='right',
+ #        verticalalignment='top',
+ #        transform=ax.transAxes)
 	ax.plot(xpts_s1, ypts_s1, label="Star 1")
 	ax.plot(xpts_s2, ypts_s2, label="Star 2")
 	ax.plot(xpts_p, ypts_p, label ="Planet")
-	plt.legend(loc="best")
+	plt.legend(loc="best",fontsize=12)
+
+	# Saving plots
 	if final_time != 0:	
-		plt.savefig("Fail_for_{0}_star_{1}_planet.png".format(A, test_plan))
+		plt.savefig("Fail_for_{0:.1f}_star_{1:.1f}{2}_planet.png".format(A, test_plan, x_y_flag))
 	else:
-		plt.savefig("Possible_for_{0}_star_{1}_planet.png".format(A, test_plan))
-		possible += 1
+		plt.savefig("Possible_for_{0:.1f}_star_{1:.1f}{2}_planet.png".format(A, test_plan, x_y_flag))
+		# possible += 1
+	
 	plt.show()
 
-	if possible >= 6:
-		print("Have generated 6 possible stable orbits.")
-		break
+	# if possible >= 10:
+	# 	print("Have generated 10 possible stable orbits.")
+	# 	break
